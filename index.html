@@ -3,43 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>Fodboldspillet</title>
-    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   </head>
+
   <body>
     <h1>Fodboldspillet</h1>
 
-    <h3>Opret konto (test)</h3>
-    <input id="email" type="email" placeholder="Email" />
-    <br />
-    <input id="password" type="password" placeholder="Kodeord (min. 6 tegn)" />
-    <br /><br />
-    <button onclick="testClick()">Opret konto</button>
-
-
-    <p id="status"></p>
+    <button onclick="testClick()">Test knap</button>
 
     <script>
-  function testClick() {
-    alert("Knappen virker");
-  }
-
-
-      const supabase = supabase.createClient(
-        "https://xjgmwlzdpmulvvavnied.supabase.co",
-        "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"
-      );
-
-      async function signUp() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        const { error } = await supabase.auth.signUp({
-          email,
-          password
-        });
-
-        document.getElementById("status").innerText =
-          error ? error.message : "Konto oprettet!";
+      function testClick() {
+        alert("JavaScript virker nu");
       }
     </script>
   </body>

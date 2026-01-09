@@ -39,59 +39,6 @@
       document.getElementById("status").innerText =
         error ? error.message : "Konto oprettet!";
     }
-     const client = supabase.createClient(
-    "https://xjgmwlzdpmulvvavnied.supabase.co",
-    "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"
-  );
-
-  async function signUp() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const { data, error } = await client.auth.signUp({
-      email,
-      password
-    });
-
-    if (error) {
-      document.getElementById("status").innerText = error.message;
-      return;
-    }
-
-    document.getElementById("status").innerText = "Konto oprettet! Logger ind...";
-  }
-
-  async function ensurePlayer() {
-    const {
-      data: { user }
-    } = await client.auth.getUser();
-
-    if (!user) return;
-    const { data: players } = await client
-      .from("players")
-      .select("id")
-      .eq("user_id", user.id)
-      .limit(1);
-
-    if (players.length > 0) {
-      console.log("Player findes allerede");
-      return;
-    }
-    const { error } = await client.from("players").insert({
-      user_id: user.id
-    });
-
-    if (error) {
-      console.error("Kunne ikke oprette player:", error.message);
-    } else {
-      console.log("Player oprettet!");
-    }
-  }
-  client.auth.onAuthStateChange((_event, session) => {
-    if (session) {
-      ensurePlayer();
-    }
-  });
   </script>
 </body>
 </html>

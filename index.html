@@ -19,12 +19,22 @@
 
     <p id="status"></p>
 
-    <script>
-      // HENT nøgler fra Vercel environment variables
-      const supabase = supabase.createClient(
-        "https://xjgmwlzdpmulvvavnied.supabase.co",
-        "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"
-      );
+  <script>
+  const supabase = supabase.createClient(
+    "https://xjgmwlzdpnulvvavvied.supabase.co",
+    "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"
+  );
 
-      async function signUp() {
-        const email = document.getEleme
+  async function signUp() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password
+    });
+
+    document.getElementById("status").innerText =
+      error ? error.message : "Konto oprettet!";
+  }
+</script>

@@ -13,11 +13,17 @@
     <br />
     <input id="password" type="password" placeholder="Kodeord (min. 6 tegn)" />
     <br /><br />
-    <button onclick="signUp()">Opret konto</button>
+    <button onclick="testClick()">Opret konto</button>
+
 
     <p id="status"></p>
 
     <script>
+  function testClick() {
+    alert("Knappen virker");
+  }
+
+
       const supabase = supabase.createClient(
         "https://xjgmwlzdpmulvvavnied.supabase.co",
         "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"

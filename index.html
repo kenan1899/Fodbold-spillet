@@ -67,8 +67,6 @@
     } = await client.auth.getUser();
 
     if (!user) return;
-
-    // Tjek om player allerede findes
     const { data: players } = await client
       .from("players")
       .select("id")
@@ -79,8 +77,6 @@
       console.log("Player findes allerede");
       return;
     }
-
-    // Opret player
     const { error } = await client.from("players").insert({
       user_id: user.id
     });
@@ -91,8 +87,6 @@
       console.log("Player oprettet!");
     }
   }
-
-  // Kør når siden loader
   client.auth.onAuthStateChange((_event, session) => {
     if (session) {
       ensurePlayer();

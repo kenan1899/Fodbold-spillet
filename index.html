@@ -3,10 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <title>Fodboldspillet</title>
+
+    <!-- Supabase client -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   </head>
   <body>
     <h1>Fodboldspillet</h1>
-    <p>Siden er live 🚀</p>
-    <p>Login og spil kommer snart.</p>
-  </body>
-</html>
+
+    <h3>Opret konto</h3>
+    <input id="email" type="email" placeholder="Email" />
+    <br />
+    <input id="password" type="password" placeholder="Kodeord (min. 6 tegn)" />
+    <br /><br />
+    <button onclick="signUp()">Opret konto</button>
+
+    <p id="status"></p>
+
+    <script>
+      // HENT nøgler fra Vercel environment variables
+      const supabase = supabasejs.createClient(
+        "https://xjgmwlzdpmulvvavnied.supabase.co",
+        "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"
+      );
+
+      async function signUp() {
+        const email = document.getEleme

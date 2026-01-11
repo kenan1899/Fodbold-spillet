@@ -8,11 +8,45 @@
       body {
         margin: 0;
         font-family: "Comic Sans MS", "Comic Sans", cursive;
-        background: #e9fbe9;
+        background: #e9fbe9; /* lys grøn */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* HEADER */
+      .header {
+        background: #f2f2f2; /* lys grå */
+        text-align: center;
+        padding: 25px 0 10px;
+      }
+
+      .top-title {
+        font-size: 48px;
+        font-weight: bold;
+      }
+
+      .title-blue {
+        color: #9fdcff;
+      }
+
+      .title-yellow {
+        color: #ffd500;
+      }
+
+      .divider {
+        width: 100%;
+        height: 3px;
+        background: black;
+        margin-top: 15px;
+      }
+
+      /* CENTER CONTENT */
+      .content {
+        flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
       }
 
       .login-box {
@@ -64,21 +98,34 @@
   </head>
 
   <body>
-    <div class="login-box">
-      <h1>Log ind</h1>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="top-title">
+        <span class="title-blue">Fodbold</span
+        ><span class="title-yellow">-</span
+        ><span class="title-blue">Spillet</span>
+      </div>
+      <div class="divider"></div>
+    </div>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Indtast email" />
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="login-box">
+        <h1>Log ind</h1>
 
-      <label for="password">Adgangskode</label>
-      <input type="password" id="password" placeholder="Indtast adgangskode" />
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Indtast email" />
 
-      <!-- GØR INTET ENDNU -->
-      <button class="action-btn">Log ind</button>
+        <label for="password">Adgangskode</label>
+        <input type="password" id="password" placeholder="Indtast adgangskode" />
 
-      <span class="back-link" onclick="window.location.href='index.html'">
-        ← Tilbage til forsiden
-      </span>
+        <!-- GØR INTET ENDNU -->
+        <button class="action-btn">Log ind</button>
+
+        <span class="back-link" onclick="window.location.href='index.html'">
+          ← Tilbage til forsiden
+        </span>
+      </div>
     </div>
   </body>
 </html>

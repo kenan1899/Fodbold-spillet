@@ -8,17 +8,17 @@
       body {
         margin: 0;
         font-family: "Comic Sans MS", "Comic Sans", cursive;
-        background: #e9fbe9; /* lys grøn */
       }
 
-      /* TOP HEADER */
+      /* HEADER */
       .header {
+        background: #f2f2f2; /* meget lys grå */
         text-align: center;
-        padding: 20px 0 10px;
+        padding: 25px 0 10px;
       }
 
       .top-title {
-        font-size: 44px; /* større overskrift */
+        font-size: 48px;
         font-weight: bold;
       }
 
@@ -37,27 +37,38 @@
         margin-top: 15px;
       }
 
-      /* PAGE SPLIT */
+      /* PAGE */
       .page {
         display: flex;
-        height: calc(100vh - 120px);
+        height: calc(100vh - 130px);
       }
 
       .left {
         width: 50%;
         padding: 40px;
         box-sizing: border-box;
-        background: #e9fbe9;
+        background: #e9fbe9; /* lys grøn */
       }
 
       .right {
         width: 50%;
         padding: 30px;
         box-sizing: border-box;
-        background: #cfeecf; /* lidt mørkere grøn */
+        background: #cfeecf; /* mørkere grøn */
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
+      }
+
+      /* Lodret divider */
+      .vertical-divider {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 100%;
+        background: black;
       }
 
       .face-box {
@@ -178,6 +189,8 @@
 
       <!-- HØJRE -->
       <div class="right">
+        <div class="vertical-divider"></div>
+
         <div class="face-box" id="faceBox">
           <div id="faceValues"></div>
         </div>

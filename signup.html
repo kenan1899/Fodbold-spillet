@@ -1,114 +1,129 @@
 <!DOCTYPE html>
 <html lang="da">
-<head>
-  <meta charset="UTF-8" />
-  <title>Opret profil – Fodbold-Spillet</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Opret profil – Fodbold-Spillet</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Comic Sans MS", "Comic Sans", cursive;
-      background: #e9fbe9;
-    }
+    <style>
+      body {
+        margin: 0;
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        background: #e9fbe9;
+        min-height: 100vh;
+      }
 
-    .header {
-      background: #f2f2f2;
-      text-align: center;
-      padding: 25px 0 10px;
-    }
+      /* ===== HEADER ===== */
+      .header {
+        background: #f2f2f2;
+        text-align: center;
+        padding: 25px 0 10px;
+      }
 
-    .top-title {
-      font-size: 48px;
-      font-weight: bold;
-    }
+      .top-title {
+        font-size: 48px;
+        font-weight: bold;
+      }
 
-    .title-blue { color: #9fdcff; }
-    .title-yellow { color: #ffd500; }
+      .title-blue { color: #9fdcff; }
+      .title-yellow { color: #ffd500; }
 
-    .divider {
-      height: 3px;
-      background: black;
-    }
+      .divider {
+        width: 100%;
+        height: 3px;
+        background: black;
+        margin-top: 10px;
+      }
 
-    .page {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 40px;
-    }
+      /* ===== PAGE CENTER ===== */
+      .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 40px;
+      }
 
-    .face-box {
-      width: 260px;
-      background: white;
-      border: 3px solid black;
-      padding: 10px;
-    }
+      .signup-box {
+        background: white;
+        border: 3px solid black;
+        padding: 30px;
+        width: 340px;
+      }
 
-    .signup-box {
-      width: 320px;
-      background: white;
-      border: 3px solid black;
-      padding: 20px;
-    }
+      h1 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 25px;
+      }
 
-    .face-line {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
 
-    label { font-weight: bold; }
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      font-family: inherit;
-    }
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        font-family: inherit;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
 
-    .action-btn {
-      width: 100%;
-      background: #1f5f3a;
-      color: #ffd500;
-      border: 3px solid black;
-      padding: 10px;
-      cursor: pointer;
-    }
-  </style>
-</head>
+      .action-btn {
+        width: 100%;
+        background: #1f5f3a;   /* mørkegrøn */
+        color: #ffd500;        /* gul tekst */
+        border: 3px solid black;
+        padding: 10px;
+        font-family: inherit;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-<body>
-  <div class="header">
-    <div class="top-title">
-      <span class="title-blue">Fodbold</span><span class="title-yellow">-</span><span class="title-blue">Spillet</span>
+      .back-link {
+        margin-top: 15px;
+        text-align: center;
+        display: block;
+        color: black;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="top-title">
+        <span class="title-blue">Fodbold</span
+        ><span class="title-yellow">-</span
+        ><span class="title-blue">Spillet</span>
+      </div>
+      <div class="divider"></div>
     </div>
-    <div class="divider"></div>
-  </div>
 
-  <div class="page">
-    <div class="face-box" id="preview"></div>
+    <!-- CONTENT -->
+    <div class="page">
+      <div class="signup-box">
+        <h1>Opret profil</h1>
 
-    <div class="signup-box">
-      <h2>Opret profil</h2>
-      <label>Email</label>
-      <input />
-      <label>Adgangskode</label>
-      <input type="password" />
-      <button class="action-btn">Opret profil</button>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Indtast email" />
+
+        <label for="password">Adgangskode</label>
+        <input type="password" id="password" placeholder="Mindst 6 tegn" />
+
+        <label for="password2">Gentag adgangskode</label>
+        <input type="password" id="password2" placeholder="Gentag adgangskode" />
+
+        <!-- GØR INTET ENDNU -->
+        <button class="action-btn">Opret profil</button>
+
+        <span class="back-link" onclick="window.location.href='index.html'">
+          ← Tilbage til forsiden
+        </span>
+      </div>
     </div>
-  </div>
-
-  <script>
-    const data = JSON.parse(localStorage.getItem("playerDraft"));
-    if(data){
-      preview.innerHTML = `
-        <div class="face-line"><b>Navn:</b> ${data.navn}</div>
-        <div class="face-line"><b>Nationalitet:</b> ${data.nationalitet}</div>
-        <div class="face-line"><b>Position:</b> ${data.position}</div>`;
-      Object.keys(data.appearance).forEach(k=>{
-        preview.innerHTML+=`<div class="face-line">${k}: ${data.appearance[k]}</div>`;
-      });
-    } else {
-      preview.innerText="Ingen spiller fundet";
-    }
-  </script>
-</body>
+  </body>
 </html>

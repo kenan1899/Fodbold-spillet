@@ -8,40 +8,53 @@
       body {
         margin: 0;
         font-family: "Comic Sans MS", "Comic Sans", cursive;
-        background: #e9fbe9; /* meget lys grøn */
+        background: #e9fbe9; /* lys grøn */
       }
 
-      /* Top titel */
-      .top-title {
+      /* TOP HEADER */
+      .header {
         text-align: center;
-        font-size: 36px;
-        margin: 20px 0;
+        padding: 20px 0 10px;
+      }
+
+      .top-title {
+        font-size: 44px; /* større overskrift */
         font-weight: bold;
       }
 
       .title-blue {
-        color: #9fdcff; /* meget lys blå */
+        color: #9fdcff;
       }
 
       .title-yellow {
-        color: #ffd500; /* gul bindestreg */
+        color: #ffd500;
       }
 
+      .divider {
+        width: 100%;
+        height: 3px;
+        background: black;
+        margin-top: 15px;
+      }
+
+      /* PAGE SPLIT */
       .page {
         display: flex;
-        height: calc(100vh - 90px);
+        height: calc(100vh - 120px);
       }
 
       .left {
         width: 50%;
         padding: 40px;
         box-sizing: border-box;
+        background: #e9fbe9;
       }
 
       .right {
         width: 50%;
         padding: 30px;
         box-sizing: border-box;
+        background: #cfeecf; /* lidt mørkere grøn */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -106,7 +119,7 @@
         border: 2px solid #333;
         padding: 10px;
         margin-bottom: 10px;
-        background: #ffffff;
+        background: white;
       }
 
       .row {
@@ -134,13 +147,17 @@
   </head>
 
   <body>
-    <!-- TOP OVERSKRIFT -->
-    <div class="top-title">
-      <span class="title-blue">Fodbold</span
-      ><span class="title-yellow">-</span
-      ><span class="title-blue">Spillet</span>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="top-title">
+        <span class="title-blue">Fodbold</span
+        ><span class="title-yellow">-</span
+        ><span class="title-blue">Spillet</span>
+      </div>
+      <div class="divider"></div>
     </div>
 
+    <!-- CONTENT -->
     <div class="page">
       <!-- VENSTRE -->
       <div class="left">

@@ -1,129 +1,94 @@
 <!DOCTYPE html>
 <html lang="da">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Opret profil – Fodbold-Spillet</title>
+<head>
+  <meta charset="UTF-8" />
+  <title>Opret profil – Fodbold-Spillet</title>
 
-    <style>
-      body {
-        margin: 0;
-        font-family: "Comic Sans MS", "Comic Sans", cursive;
-        background: #e9fbe9;
-        min-height: 100vh;
-      }
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+      background: #e9fbe9;
+    }
 
-      /* ===== HEADER ===== */
-      .header {
-        background: #f2f2f2;
-        text-align: center;
-        padding: 25px 0 10px;
-      }
+    .header {
+      background: #f2f2f2;
+      text-align: center;
+      padding: 25px 0 10px;
+    }
 
-      .top-title {
-        font-size: 48px;
-        font-weight: bold;
-      }
+    .top-title {
+      font-size: 48px;
+      font-weight: bold;
+    }
 
-      .title-blue { color: #9fdcff; }
-      .title-yellow { color: #ffd500; }
+    .title-blue { color: #9fdcff; }
+    .title-yellow { color: #ffd500; }
 
-      .divider {
-        width: 100%;
-        height: 3px;
-        background: black;
-        margin-top: 10px;
-      }
+    .divider {
+      height: 3px;
+      background: black;
+    }
 
-      /* ===== PAGE CENTER ===== */
-      .page {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 40px;
-      }
+    .page {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px;
+    }
 
-      .signup-box {
-        background: white;
-        border: 3px solid black;
-        padding: 30px;
-        width: 340px;
-      }
+    .box {
+      background: white;
+      border: 3px solid black;
+      padding: 20px;
+      width: 300px;
+    }
 
-      h1 {
-        text-align: center;
-        margin-top: 0;
-        margin-bottom: 25px;
-      }
+    label { font-weight: bold; }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      font-family: inherit;
+    }
 
-      label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-      }
+    .action-btn {
+      width: 100%;
+      background: #1f5f3a;
+      color: #ffd500;
+      border: 3px solid black;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
 
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        font-family: inherit;
-        font-size: 14px;
-        box-sizing: border-box;
-      }
-
-      .action-btn {
-        width: 100%;
-        background: #1f5f3a;   /* mørkegrøn */
-        color: #ffd500;        /* gul tekst */
-        border: 3px solid black;
-        padding: 10px;
-        font-family: inherit;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
-      .back-link {
-        margin-top: 15px;
-        text-align: center;
-        display: block;
-        color: black;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- HEADER -->
-    <div class="header">
-      <div class="top-title">
-        <span class="title-blue">Fodbold</span
-        ><span class="title-yellow">-</span
-        ><span class="title-blue">Spillet</span>
-      </div>
-      <div class="divider"></div>
+<body>
+  <div class="header">
+    <div class="top-title">
+      <span class="title-blue">Fodbold</span><span class="title-yellow">-</span><span class="title-blue">Spillet</span>
     </div>
+    <div class="divider"></div>
+  </div>
 
-    <!-- CONTENT -->
-    <div class="page">
-      <div class="signup-box">
-        <h1>Opret profil</h1>
+  <div class="page">
+    <div class="box" id="preview"></div>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Indtast email" />
-
-        <label for="password">Adgangskode</label>
-        <input type="password" id="password" placeholder="Mindst 6 tegn" />
-
-        <label for="password2">Gentag adgangskode</label>
-        <input type="password" id="password2" placeholder="Gentag adgangskode" />
-
-        <!-- GØR INTET ENDNU -->
-        <button class="action-btn">Opret profil</button>
-
-        <span class="back-link" onclick="window.location.href='index.html'">
-          ← Tilbage til forsiden
-        </span>
-      </div>
+    <div class="box">
+      <h2>Opret profil</h2>
+      <label>Email</label>
+      <input />
+      <label>Adgangskode</label>
+      <input type="password" />
+      <button class="action-btn">Opret profil</button>
     </div>
-  </body>
+  </div>
+
+  <script>
+    const p = JSON.parse(localStorage.getItem("playerDraft"));
+    preview.innerHTML = p
+      ? `<b>Din spiller</b><br>Navn: ${p.navn}<br>Nationalitet: ${p.nationalitet}<br>Position: ${p.position}`
+      : "Ingen spillerdata";
+  </script>
+</body>
 </html>

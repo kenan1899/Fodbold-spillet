@@ -2,17 +2,34 @@
 <html lang="da">
   <head>
     <meta charset="UTF-8" />
-    <title>Opret spiller</title>
+    <title>Fodbold-Spillet</title>
 
     <style>
       body {
         margin: 0;
         font-family: "Comic Sans MS", "Comic Sans", cursive;
+        background: #e9fbe9; /* meget lys grøn */
+      }
+
+      /* Top titel */
+      .top-title {
+        text-align: center;
+        font-size: 36px;
+        margin: 20px 0;
+        font-weight: bold;
+      }
+
+      .title-blue {
+        color: #9fdcff; /* meget lys blå */
+      }
+
+      .title-yellow {
+        color: #ffd500; /* gul bindestreg */
       }
 
       .page {
         display: flex;
-        height: 100vh;
+        height: calc(100vh - 90px);
       }
 
       .left {
@@ -25,7 +42,6 @@
         width: 50%;
         padding: 30px;
         box-sizing: border-box;
-        background: #f2f2f2;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -90,6 +106,7 @@
         border: 2px solid #333;
         padding: 10px;
         margin-bottom: 10px;
+        background: #ffffff;
       }
 
       .row {
@@ -109,7 +126,6 @@
         user-select: none;
       }
 
-      /* Face text */
       .face-line {
         font-size: 14px;
         margin-bottom: 4px;
@@ -118,6 +134,13 @@
   </head>
 
   <body>
+    <!-- TOP OVERSKRIFT -->
+    <div class="top-title">
+      <span class="title-blue">Fodbold</span
+      ><span class="title-yellow">-</span
+      ><span class="title-blue">Spillet</span>
+    </div>
+
     <div class="page">
       <!-- VENSTRE -->
       <div class="left">
@@ -133,7 +156,6 @@
 
         <div id="status">Ingen position valgt</div>
 
-        <!-- EDITOR -->
         <div class="editor" id="editor"></div>
       </div>
 
@@ -187,13 +209,8 @@
       function renderFaceValues() {
         const face = document.getElementById("faceValues");
         face.innerHTML = "";
-
         Object.keys(values).forEach(key => {
-          face.innerHTML += `
-            <div class="face-line">
-              ${key}: ${values[key]}
-            </div>
-          `;
+          face.innerHTML += `<div class="face-line">${key}: ${values[key]}</div>`;
         });
       }
 

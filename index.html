@@ -90,7 +90,6 @@
         position: relative;
       }
 
-      /* NATIONALITY BOX (FLAG PLADS) */
       /* NATIONALITY BOX */
       .nationality-box {
         position: absolute;
@@ -105,9 +104,6 @@
         text-align: center;
       }
 
-      h1 {
-        text-align: center;
-      }
       h1 { text-align: center; }
 
       /* ===== INPUTS ===== */
@@ -184,9 +180,6 @@
         align-items: center;
       }
 
-      .label {
-        font-weight: bold;
-      }
       .label { font-weight: bold; }
 
       .arrow {
@@ -261,7 +254,6 @@
 
         <!-- OPRET PROFIL -->
         <div style="text-align:center; margin-top:30px;">
-          <button class="action-btn">Opret profil</button>
           <button class="action-btn" onclick="window.location.href='signup.html'">
             Opret profil
           </button>
@@ -301,7 +293,6 @@
       function renderEditor() {
         const editor = document.getElementById("editor");
         editor.innerHTML = "";
-
         Object.keys(appearance).forEach(key => {
           const max = appearance[key][1];
           editor.innerHTML += `
@@ -312,8 +303,6 @@
                 <div style="text-align:center">${values[key]} / ${max}</div>
                 <div class="arrow" onclick="changeValue('${key}', 1)">▶</div>
               </div>
-            </div>
-          `;
             </div>`;
         });
       }
@@ -321,14 +310,11 @@
       function renderFaceValues() {
         const face = document.getElementById("faceValues");
         face.innerHTML = "";
-
         face.innerHTML += `<div class="face-line"><b>Navn:</b> ${playerName.value || "-"}</div>`;
         face.innerHTML += `<div class="face-line"><b>Position:</b> ${selectedPosition || "-"}</div>`;
-
         Object.keys(values).forEach(key => {
           face.innerHTML += `<div class="face-line">${key}: ${values[key]}</div>`;
         });
-
         document.getElementById("nationalityBox").innerText =
           document.getElementById("nationality").value || "-";
       }
@@ -344,10 +330,8 @@
 
       function selectPosition(position, element) {
         selectedPosition = position;
-
         document.querySelectorAll(".position-btn").forEach(b => b.classList.remove("selected"));
         element.classList.add("selected");
-
         document.getElementById("status").innerText = "Valgt position: " + position;
 
         const faceBox = document.getElementById("faceBox");

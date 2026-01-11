@@ -2,43 +2,103 @@
 <html lang="da">
   <head>
     <meta charset="UTF-8" />
-    <title>Fodboldspillet</title>
+    <title>Opret spiller</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      .positions {
+        display: grid;
+        grid-template-columns: repeat(2, 150px);
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .position-btn {
+        padding: 15px;
+        border: 2px solid #333;
+        cursor: pointer;
+        background: white;
+        font-size: 16px;
+      }
+
+      .position-btn.selected {
+        background: #333;
+        color: white;
+      }
+
+      #status {
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      button {
+        padding: 12px 25px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
-  <h1>Fodboldspillet</h1>
+    <h1>Opret spiller</h1>
 
-  <h3>Opret konto</h3>
-  <input id="email" type="email" placeholder="Email" />
-  <br />
-  <input id="password" type="password" placeholder="Kodeord (min. 6 tegn)" />
-  <br /><br />
-  <button onclick="signUp()">Opret konto</button>
+    <p>Vælg position</p>
 
-  <p id="status"></p>
+    <div class="positions">
+      <div class="position-btn" onclick="selectPosition('målmand')">
+        Målmand
+      </div>
+      <div class="position-btn" onclick="selectPosition('forsvar')">
+        Forsvar
+      </div>
+      <div class="position-btn" onclick="selectPosition('midtbane')">
+        Midtbane
+      </div>
+      <div class="position-btn" onclick="selectPosition('angreb')">
+        Angreb
+      </div>
+    </div>
 
-  <!-- Supabase UMD (browser-version) -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <div id="status">Ingen position valgt</div>
 
-  <script>
-    // OPRET klienten (brug DINE rigtige værdier)
-    const client = supabase.createClient(
-      "https://xjgmwlzdpmulvvavnied.supabase.co",
-      "sb_publishable_jzAF9XGA5S7rGRLDyyDHEg_cA0eZUli"
-    );
+    <button onclick="continueNext()">Fortsæt</button>
 
-    async function signUp() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    <script>
+      let selectedPosition = null;
 
-      const { error } = await client.auth.signUp({
-        email,
-        password
-      });
+      function selectPosition(position) {
+        selectedPosition = position;
 
-      document.getElementById("status").innerText =
-        error ? error.message : "Konto oprettet!";
-    }
-  </script>
-</body>
+        const buttons = document.querySelectorAll(".position-btn");
+        buttons.forEach((btn) => btn.classList.remove("selected"));
+
+        event.target.classList.add("selected");
+
+        document.getElementById("status").innerText =
+          "Valgt position: " + position;
+      }
+
+      function continueNext() {
+        if (!selectedPosition) {
+          alert("Du skal vælge en position først");
+          return;
+        }
+
+        localStorage.setItem(
+          "playerDraft",
+          JSON.stringify({
+            position: selectedPosition
+          })
+        );
+
+        alert("Position gemt: " + selectedPosition);
+      }
+    </script>
+  </body>
 </html>

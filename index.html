@@ -7,8 +7,19 @@
     <style>
       body {
         font-family: "Comic Sans MS", "Comic Sans", cursive;
+        margin: 0;
+      }
+
+      .container {
+        display: flex;
+        height: 100vh;
+      }
+
+      /* VENSTRE SIDE */
+      .left {
+        width: 50%;
+        padding: 40px;
         text-align: center;
-        margin-top: 40px;
       }
 
       .positions {
@@ -23,11 +34,10 @@
         padding: 15px;
         cursor: pointer;
         font-size: 16px;
-        color: black;
         border: none;
       }
 
-      /* Farver */
+      /* FARVER */
       .goalkeeper {
         background: #4da3ff;
       }
@@ -68,48 +78,80 @@
         padding: 12px 25px;
         font-size: 16px;
         cursor: pointer;
-          font-family: "Comic Sans MS", "Comic Sans", cursive;
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+      }
+
+      /* HØJRE SIDE */
+      .right {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f0f0f0;
+      }
+
+      .face-box {
+        width: 300px;
+        height: 400px;
+        background: white;
+        border: 3px solid #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
       }
     </style>
-    </head>
+  </head>
 
   <body>
-    <h1>Opret spiller</h1>
-    <p>Vælg position</p>
+    <div class="container">
+      <!-- VENSTRE -->
+      <div class="left">
+        <h1>Opret spiller</h1>
+        <p>Vælg position</p>
 
-    <div class="positions">
-      <div
-        class="position-btn goalkeeper"
-        onclick="selectPosition('målmand', this)"
-      >
-        Målmand
+        <div class="positions">
+          <div
+            class="position-btn goalkeeper"
+            onclick="selectPosition('målmand', this)"
+          >
+            Målmand
+          </div>
+
+          <div
+            class="position-btn defender"
+            onclick="selectPosition('forsvar', this)"
+          >
+            Forsvar
+          </div>
+
+          <div
+            class="position-btn midfielder"
+            onclick="selectPosition('midtbane', this)"
+          >
+            Midtbane
+          </div>
+
+          <div
+            class="position-btn attacker"
+            onclick="selectPosition('angreb', this)"
+          >
+            Angreb
+          </div>
+        </div>
+
+        <div id="status">Ingen position valgt</div>
+
+        <button onclick="continueNext()">Fortsæt</button>
       </div>
 
-      <div
-        class="position-btn defender"
-        onclick="selectPosition('forsvar', this)"
-      >
-        Forsvar
-      </div>
-
-      <div
-        class="position-btn midfielder"
-        onclick="selectPosition('midtbane', this)"
-      >
-        Midtbane
-      </div>
-
-      <div
-        class="position-btn attacker"
-        onclick="selectPosition('angreb', this)"
-      >
-        Angreb
+      <!-- HØJRE -->
+      <div class="right">
+        <div class="face-box">
+          Ansigt kommer her
+        </div>
       </div>
     </div>
-
-    <div id="status">Ingen position valgt</div>
-
-    <button onclick="continueNext()">Fortsæt</button>
 
     <script>
       let selectedPosition = null;

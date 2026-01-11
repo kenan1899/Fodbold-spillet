@@ -8,23 +8,33 @@
       body {
         margin: 0;
         font-family: "Comic Sans MS", "Comic Sans", cursive;
+        background: #e9fbe9; /* lys grøn */
         background: #e9fbe9;
       }
 
+      /* TOP HEADER */
       /* HEADER */
       .header {
+        background: #f2f2f2; /* meget lys grå */
         background: #f2f2f2;
-        padding: 20px 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        text-align: center;
+        padding: 20px 0 10px;
+        padding: 25px 0 10px;
       }
 
       .top-title {
+        font-size: 44px; /* større overskrift */
         font-size: 48px;
         font-weight: bold;
       }
 
+      .title-blue {
+        color: #9fdcff;
+      }
+
+      .title-yellow {
+        color: #ffd500;
+      }
       .title-blue { color: #9fdcff; }
       .title-yellow { color: #ffd500; }
 
@@ -32,22 +42,15 @@
         width: 100%;
         height: 3px;
         background: black;
+        margin-top: 15px;
       }
 
-      /* BUTTON STYLE */
-      .green-btn {
-        background: #1f5f3a;        /* mørkegrøn */
-        color: #ffd500;             /* gul tekst */
-        border: 3px solid black;
-        padding: 10px 18px;
-        font-family: inherit;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
+      /* PAGE SPLIT */
       /* PAGE */
       .page {
         display: flex;
+        height: calc(100vh - 120px);
+        height: calc(100vh - 130px);
         min-height: calc(100vh - 130px);
       }
 
@@ -56,12 +59,15 @@
         padding: 40px;
         box-sizing: border-box;
         background: #e9fbe9;
+        background: #e9fbe9; /* lys grøn */
       }
 
       .right {
         width: 50%;
         padding: 30px;
         box-sizing: border-box;
+        background: #cfeecf; /* lidt mørkere grøn */
+        background: #cfeecf; /* mørkere grøn */
         background: #cfeecf;
         display: flex;
         justify-content: center;
@@ -69,6 +75,7 @@
         position: relative;
       }
 
+      /* Lodret divider */
       .vertical-divider {
         position: absolute;
         left: 0;
@@ -83,7 +90,9 @@
         height: 460px;
         background: white;
         border: 3px solid #333;
+        transition: background 0.25s ease;
         padding: 10px;
+        box-sizing: border-box;
         overflow-y: auto;
       }
 
@@ -128,6 +137,7 @@
         text-align: center;
       }
 
+      /* Position farver */
       .goalkeeper { background: #4da3ff; }
       .goalkeeper.selected { background: #1f6fd1; color: white; }
 
@@ -146,6 +156,7 @@
         font-weight: bold;
       }
 
+      /* Editor */
       /* EDITOR */
       .editor {
         max-width: 360px;
@@ -180,11 +191,6 @@
         font-size: 14px;
         margin-bottom: 4px;
       }
-
-      .create-btn-wrapper {
-        text-align: center;
-        margin-top: 30px;
-      }
     </style>
   </head>
 
@@ -192,63 +198,153 @@
     <!-- HEADER -->
     <div class="header">
       <div class="top-title">
+        <span class="title-blue">Fodbold</span
+        ><span class="title-yellow">-</span
+        ><span class="title-blue">Spillet</span>
         <span class="title-blue">Fodbold</span><span class="title-yellow">-</span><span class="title-blue">Spillet</span>
       </div>
-
-      <!-- LOGIN BUTTON -->
-      <button class="green-btn">Log ind</button>
+      <div class="divider"></div>
     </div>
-    <div class="divider"></div>
 
     <!-- CONTENT -->
     <div class="page">
+      <!-- VENSTRE -->
       <!-- LEFT -->
       <div class="left">
         <h1>Opret spiller</h1>
+        <p style="text-align: center">Vælg position</p>
 
+        <!-- NAME -->
         <div class="input-box">
-          <label>Brugernavn</label>
-          <input type="text" placeholder="Vælg brugernavn" />
+          <label>Navn</label>
+          <input type="text" id="playerName" placeholder="Indtast spillernavn" />
         </div>
 
+        <!-- NATIONALITY -->
         <div class="input-box">
           <label>Nationalitet</label>
-          <select>
-            <option>Vælg nationalitet</option>
+          <select id="nationality">
+            <option value="">Vælg nationalitet</option>
             <option>Brasilien</option><option>Argentina</option><option>Frankrig</option>
             <option>England</option><option>Tyskland</option><option>Spanien</option>
             <option>Portugal</option><option>Italien</option><option>Holland</option>
             <option>Belgien</option><option>Kroatien</option><option>Uruguay</option>
-            <option>Danmark</option><option>USA</option><option>Japan</option>
+            <option>Danmark</option><option>Serbien</option><option>Schweiz</option>
+            <option>Polen</option><option>USA</option><option>Mexico</option>
+            <option>Japan</option><option>Sydkorea</option><option>Marokko</option>
+            <option>Senegal</option><option>Nigeria</option><option>Ghana</option>
+            <option>Egypten</option><option>Iran</option><option>Australien</option>
+            <option>Colombia</option><option>Chile</option><option>Peru</option>
+            <option>Saudi-Arabien</option>
           </select>
         </div>
 
         <p style="text-align:center">Vælg position</p>
 
         <div class="positions">
-          <div class="position-btn goalkeeper">Målmand</div>
-          <div class="position-btn defender">Forsvar</div>
-          <div class="position-btn midfielder">Midtbane</div>
-          <div class="position-btn attacker">Angreb</div>
+          <div class="position-btn goalkeeper" onclick="selectPosition('målmand', this)">Målmand</div>
+          <div class="position-btn defender" onclick="selectPosition('forsvar', this)">Forsvar</div>
+          <div class="position-btn midfielder" onclick="selectPosition('midtbane', this)">Midtbane</div>
+          <div class="position-btn attacker" onclick="selectPosition('angreb', this)">Angreb</div>
         </div>
 
         <div id="status">Ingen position valgt</div>
 
-        <div class="editor">
-          <div class="box">Ansigtsvalg her …</div>
-        </div>
-
-        <!-- CREATE PROFILE BUTTON -->
-        <div class="create-btn-wrapper">
-          <button class="green-btn">Opret profil</button>
-        </div>
+        <div class="editor" id="editor"></div>
       </div>
 
+      <!-- HØJRE -->
       <!-- RIGHT -->
       <div class="right">
         <div class="vertical-divider"></div>
-        <div class="face-box">Ansigt preview</div>
+
+        <div class="face-box" id="faceBox">
+          <div id="faceValues"></div>
+        </div>
       </div>
     </div>
+
+    <script>
+      let selectedPosition = null;
+
+      const appearance = {
+        Hudfarve: [1, 6],
+        Hår: [1, 14],
+        Hårfarve: [1, 7],
+        Øjne: [1, 6],
+        Ører: [1, 4],
+        Næse: [1, 5],
+        Mund: [1, 5],
+        Skæg: [1, 8],
+        Skægfarve: [1, 7],
+        Hals: [1, 5]
+      };
+
+      const values = {};
+      Object.keys(appearance).forEach(k => values[k] = 1);
+
+      function renderEditor() {
+        const editor = document.getElementById("editor");
+        editor.innerHTML = "";
+
+        Object.keys(appearance).forEach(key => {
+          const max = appearance[key][1];
+
+          editor.innerHTML += `
+            <div class="box">
+              <div class="row">
+                <div class="label">${key}</div>
+                <div class="arrow" onclick="changeValue('${key}', -1)">◀</div>
+                <div style="text-align:center">${values[key]} / ${max}</div>
+                <div class="arrow" onclick="changeValue('${key}', 1)">▶</div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      function renderFaceValues() {
+        const face = document.getElementById("faceValues");
+        face.innerHTML = "";
+        face.innerHTML += `<div class="face-line"><b>Navn:</b> ${document.getElementById("playerName").value || "-"}</div>`;
+        face.innerHTML += `<div class="face-line"><b>Nationalitet:</b> ${document.getElementById("nationality").value || "-"}</div>`;
+        face.innerHTML += `<div class="face-line"><b>Position:</b> ${selectedPosition || "-"}</div>`;
+        Object.keys(values).forEach(key => {
+          face.innerHTML += `<div class="face-line">${key}: ${values[key]}</div>`;
+        });
+      }
+
+      function changeValue(key, delta) {
+        const max = appearance[key][1];
+        values[key] += delta;
+        if (values[key] < 1) values[key] = max;
+        if (values[key] > max) values[key] = 1;
+        renderEditor();
+        renderFaceValues();
+      }
+
+      function selectPosition(position, element) {
+        selectedPosition = position;
+
+        document.querySelectorAll(".position-btn").forEach(b => b.classList.remove("selected"));
+        element.classList.add("selected");
+
+        document.getElementById("status").innerText = "Valgt position: " + position;
+
+        const faceBox = document.getElementById("faceBox");
+        if (position === "målmand") faceBox.style.background = "#4da3ff";
+        if (position === "forsvar") faceBox.style.background = "#ffe066";
+        if (position === "midtbane") faceBox.style.background = "#6fdc8c";
+        if (position === "angreb") faceBox.style.background = "#ff6b6b";
+
+        renderFaceValues();
+      }
+
+      document.getElementById("playerName").addEventListener("input", renderFaceValues);
+      document.getElementById("nationality").addEventListener("change", renderFaceValues);
+
+      renderEditor();
+      renderFaceValues();
+    </script>
   </body>
 </html>

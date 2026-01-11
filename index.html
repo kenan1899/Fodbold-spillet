@@ -26,12 +26,14 @@
         padding: 30px;
         box-sizing: border-box;
         background: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .face-box {
         width: 320px;
         height: 420px;
-        margin: 0 auto 30px;
         background: white;
         border: 3px solid #333;
         display: flex;
@@ -49,7 +51,7 @@
         grid-template-columns: repeat(2, 150px);
         gap: 15px;
         justify-content: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
       }
 
       .position-btn {
@@ -78,35 +80,32 @@
         font-weight: bold;
       }
 
-      button {
-        display: block;
-        margin: 0 auto;
-        padding: 12px 25px;
-        font-size: 16px;
-        cursor: pointer;
-        font-family: "Comic Sans MS", "Comic Sans", cursive;
-      }
-
-      /* Appearance editor */
+      /* Editor */
       .editor {
         max-width: 360px;
         margin: 0 auto;
+      }
+
+      .box {
+        border: 2px solid #333;
+        padding: 10px;
+        margin-bottom: 10px;
       }
 
       .row {
         display: grid;
         grid-template-columns: 1fr 40px 80px 40px;
         align-items: center;
-        margin-bottom: 10px;
       }
 
-      .row span {
-        text-align: center;
+      .label {
+        font-weight: bold;
       }
 
       .arrow {
         cursor: pointer;
         font-size: 20px;
+        text-align: center;
         user-select: none;
       }
     </style>
@@ -127,7 +126,9 @@
         </div>
 
         <div id="status">Ingen position valgt</div>
-        <button onclick="continueNext()">Fortsæt</button>
+
+        <!-- EDITOR UNDER POSITIONER -->
+        <div class="editor" id="editor"></div>
       </div>
 
       <!-- HØJRE -->
@@ -135,8 +136,6 @@
         <div class="face-box" id="faceBox">
           Ansigt
         </div>
-
-        <div class="editor" id="editor"></div>
       </div>
     </div>
 
@@ -144,16 +143,16 @@
       let selectedPosition = null;
 
       const appearance = {
-        hud: [1, 6],
-        hår: [1, 14],
-        hårfarve: [1, 7],
-        øjne: [1, 6],
-        ører: [1, 4],
-        næse: [1, 5],
-        mund: [1, 5],
-        skæg: [1, 8],
-        skægfarve: [1, 7],
-        hals: [1, 5]
+        Hudfarve: [1, 6],
+        Hår: [1, 14],
+        Hårfarve: [1, 7],
+        Øjne: [1, 6],
+        Ører: [1, 4],
+        Næse: [1, 5],
+        Mund: [1, 5],
+        Skæg: [1, 8],
+        Skægfarve: [1, 7],
+        Hals: [1, 5]
       };
 
       const values = {};
@@ -164,14 +163,16 @@
         editor.innerHTML = "";
 
         Object.keys(appearance).forEach(key => {
-          const [min, max] = appearance[key];
+          const max = appearance[key][1];
 
           editor.innerHTML += `
-            <div class="row">
-              <div>${key}</div>
-              <div class="arrow" onclick="changeValue('${key}', -1)">◀</div>
-              <span>${values[key]} / ${max}</span>
-              <div class="arrow" onclick="changeValue('${key}', 1)">▶</div>
+            <div class="box">
+              <div class="row">
+                <div class="label">${key}</div>
+                <div class="arrow" onclick="changeValue('${key}', -1)">◀</div>
+                <div style="text-align:center">${values[key]} / ${max}</div>
+                <div class="arrow" onclick="changeValue('${key}', 1)">▶</div>
+              </div>
             </div>
           `;
         });
@@ -187,8 +188,10 @@
 
       function selectPosition(position, element) {
         selectedPosition = position;
+
         document.querySelectorAll(".position-btn").forEach(b => b.classList.remove("selected"));
         element.classList.add("selected");
+
         document.getElementById("status").innerText = "Valgt position: " + position;
 
         const faceBox = document.getElementById("faceBox");
@@ -196,20 +199,6 @@
         if (position === "forsvar") faceBox.style.background = "#ffe066";
         if (position === "midtbane") faceBox.style.background = "#6fdc8c";
         if (position === "angreb") faceBox.style.background = "#ff6b6b";
-      }
-
-      function continueNext() {
-        if (!selectedPosition) {
-          alert("Du skal vælge en position først");
-          return;
-        }
-
-        localStorage.setItem("playerDraft", JSON.stringify({
-          position: selectedPosition,
-          appearance: values
-        }));
-
-        alert("Spiller gemt midlertidigt");
       }
 
       renderEditor();

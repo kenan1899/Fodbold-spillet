@@ -21,14 +21,41 @@
 
       .position-btn {
         padding: 15px;
-        border: 2px solid #333;
         cursor: pointer;
-        background: white;
         font-size: 16px;
+        color: black;
+        border: none;
       }
 
-      .position-btn.selected {
-        background: #333;
+      /* Farver */
+      .goalkeeper {
+        background: #4da3ff;
+      }
+      .goalkeeper.selected {
+        background: #1f6fd1;
+        color: white;
+      }
+
+      .defender {
+        background: #ffe066;
+      }
+      .defender.selected {
+        background: #d4b000;
+      }
+
+      .midfielder {
+        background: #6fdc8c;
+      }
+      .midfielder.selected {
+        background: #2fa45a;
+        color: white;
+      }
+
+      .attacker {
+        background: #ff6b6b;
+      }
+      .attacker.selected {
+        background: #c92a2a;
         color: white;
       }
 
@@ -43,24 +70,38 @@
         cursor: pointer;
       }
     </style>
-  </head>
+    </head>
 
   <body>
     <h1>Opret spiller</h1>
-
     <p>Vælg position</p>
 
     <div class="positions">
-      <div class="position-btn" onclick="selectPosition('målmand')">
+      <div
+        class="position-btn goalkeeper"
+        onclick="selectPosition('målmand', this)"
+      >
         Målmand
       </div>
-      <div class="position-btn" onclick="selectPosition('forsvar')">
+
+      <div
+        class="position-btn defender"
+        onclick="selectPosition('forsvar', this)"
+      >
         Forsvar
       </div>
-      <div class="position-btn" onclick="selectPosition('midtbane')">
+
+      <div
+        class="position-btn midfielder"
+        onclick="selectPosition('midtbane', this)"
+      >
         Midtbane
       </div>
-      <div class="position-btn" onclick="selectPosition('angreb')">
+
+      <div
+        class="position-btn attacker"
+        onclick="selectPosition('angreb', this)"
+      >
         Angreb
       </div>
     </div>
@@ -72,13 +113,14 @@
     <script>
       let selectedPosition = null;
 
-      function selectPosition(position) {
+      function selectPosition(position, element) {
         selectedPosition = position;
 
-        const buttons = document.querySelectorAll(".position-btn");
-        buttons.forEach((btn) => btn.classList.remove("selected"));
+        document
+          .querySelectorAll(".position-btn")
+          .forEach((btn) => btn.classList.remove("selected"));
 
-        event.target.classList.add("selected");
+        element.classList.add("selected");
 
         document.getElementById("status").innerText =
           "Valgt position: " + position;

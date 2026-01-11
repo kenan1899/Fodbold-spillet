@@ -10,38 +10,33 @@
         font-family: "Comic Sans MS", "Comic Sans", cursive;
       }
 
-      /* Side layout */
       .page {
         display: flex;
         height: 100vh;
       }
 
-      /* Venstre side */
       .left {
         width: 50%;
         padding: 40px;
         box-sizing: border-box;
       }
 
-      /* Højre side */
       .right {
         width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        padding: 30px;
+        box-sizing: border-box;
         background: #f2f2f2;
       }
 
-      /* Ansigts-placeholder */
       .face-box {
         width: 320px;
         height: 420px;
-        background: #ffffff;
+        margin: 0 auto 30px;
+        background: white;
         border: 3px solid #333;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 18px;
         transition: background 0.25s ease;
       }
 
@@ -65,36 +60,17 @@
       }
 
       /* Position farver */
-      .goalkeeper {
-        background: #4da3ff;
-      }
-      .goalkeeper.selected {
-        background: #1f6fd1;
-        color: white;
-      }
+      .goalkeeper { background: #4da3ff; }
+      .goalkeeper.selected { background: #1f6fd1; color: white; }
 
-      .defender {
-        background: #ffe066;
-      }
-      .defender.selected {
-        background: #d4b000;
-      }
+      .defender { background: #ffe066; }
+      .defender.selected { background: #d4b000; }
 
-      .midfielder {
-        background: #6fdc8c;
-      }
-      .midfielder.selected {
-        background: #2fa45a;
-        color: white;
-      }
+      .midfielder { background: #6fdc8c; }
+      .midfielder.selected { background: #2fa45a; color: white; }
 
-      .attacker {
-        background: #ff6b6b;
-      }
-      .attacker.selected {
-        background: #c92a2a;
-        color: white;
-      }
+      .attacker { background: #ff6b6b; }
+      .attacker.selected { background: #c92a2a; color: white; }
 
       #status {
         text-align: center;
@@ -110,90 +86,116 @@
         cursor: pointer;
         font-family: "Comic Sans MS", "Comic Sans", cursive;
       }
+
+      /* Appearance editor */
+      .editor {
+        max-width: 360px;
+        margin: 0 auto;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 40px 80px 40px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .row span {
+        text-align: center;
+      }
+
+      .arrow {
+        cursor: pointer;
+        font-size: 20px;
+        user-select: none;
+      }
     </style>
   </head>
 
   <body>
     <div class="page">
-      <!-- VENSTRE SIDE -->
+      <!-- VENSTRE -->
       <div class="left">
         <h1>Opret spiller</h1>
         <p style="text-align: center">Vælg position</p>
 
         <div class="positions">
-          <div
-            class="position-btn goalkeeper"
-            onclick="selectPosition('målmand', this)"
-          >
-            Målmand
-          </div>
-
-          <div
-            class="position-btn defender"
-            onclick="selectPosition('forsvar', this)"
-          >
-            Forsvar
-          </div>
-
-          <div
-            class="position-btn midfielder"
-            onclick="selectPosition('midtbane', this)"
-          >
-            Midtbane
-          </div>
-
-          <div
-            class="position-btn attacker"
-            onclick="selectPosition('angreb', this)"
-          >
-            Angreb
-          </div>
+          <div class="position-btn goalkeeper" onclick="selectPosition('målmand', this)">Målmand</div>
+          <div class="position-btn defender" onclick="selectPosition('forsvar', this)">Forsvar</div>
+          <div class="position-btn midfielder" onclick="selectPosition('midtbane', this)">Midtbane</div>
+          <div class="position-btn attacker" onclick="selectPosition('angreb', this)">Angreb</div>
         </div>
 
         <div id="status">Ingen position valgt</div>
-
         <button onclick="continueNext()">Fortsæt</button>
       </div>
 
-      <!-- HØJRE SIDE -->
+      <!-- HØJRE -->
       <div class="right">
         <div class="face-box" id="faceBox">
-          Ansigt kommer her
+          Ansigt
         </div>
+
+        <div class="editor" id="editor"></div>
       </div>
     </div>
 
     <script>
       let selectedPosition = null;
 
+      const appearance = {
+        hud: [1, 6],
+        hår: [1, 14],
+        hårfarve: [1, 7],
+        øjne: [1, 6],
+        ører: [1, 4],
+        næse: [1, 5],
+        mund: [1, 5],
+        skæg: [1, 8],
+        skægfarve: [1, 7],
+        hals: [1, 5]
+      };
+
+      const values = {};
+      Object.keys(appearance).forEach(k => values[k] = 1);
+
+      function renderEditor() {
+        const editor = document.getElementById("editor");
+        editor.innerHTML = "";
+
+        Object.keys(appearance).forEach(key => {
+          const [min, max] = appearance[key];
+
+          editor.innerHTML += `
+            <div class="row">
+              <div>${key}</div>
+              <div class="arrow" onclick="changeValue('${key}', -1)">◀</div>
+              <span>${values[key]} / ${max}</span>
+              <div class="arrow" onclick="changeValue('${key}', 1)">▶</div>
+            </div>
+          `;
+        });
+      }
+
+      function changeValue(key, delta) {
+        const max = appearance[key][1];
+        values[key] += delta;
+        if (values[key] < 1) values[key] = max;
+        if (values[key] > max) values[key] = 1;
+        renderEditor();
+      }
+
       function selectPosition(position, element) {
         selectedPosition = position;
-
-        // Marker valgt knap
-        document
-          .querySelectorAll(".position-btn")
-          .forEach((btn) => btn.classList.remove("selected"));
+        document.querySelectorAll(".position-btn").forEach(b => b.classList.remove("selected"));
         element.classList.add("selected");
+        document.getElementById("status").innerText = "Valgt position: " + position;
 
-        // Status-tekst
-        document.getElementById("status").innerText =
-          "Valgt position: " + position;
-
-        // Skift farve på ansigts-firkanten
         const faceBox = document.getElementById("faceBox");
-
-        if (position === "målmand") {
-          faceBox.style.background = "#4da3ff";
-        }
-        if (position === "forsvar") {
-          faceBox.style.background = "#ffe066";
-        }
-        if (position === "midtbane") {
-          faceBox.style.background = "#6fdc8c";
-        }
-        if (position === "angreb") {
-          faceBox.style.background = "#ff6b6b";
-        }
+        if (position === "målmand") faceBox.style.background = "#4da3ff";
+        if (position === "forsvar") faceBox.style.background = "#ffe066";
+        if (position === "midtbane") faceBox.style.background = "#6fdc8c";
+        if (position === "angreb") faceBox.style.background = "#ff6b6b";
       }
 
       function continueNext() {
@@ -202,15 +204,15 @@
           return;
         }
 
-        localStorage.setItem(
-          "playerDraft",
-          JSON.stringify({
-            position: selectedPosition
-          })
-        );
+        localStorage.setItem("playerDraft", JSON.stringify({
+          position: selectedPosition,
+          appearance: values
+        }));
 
-        alert("Position gemt: " + selectedPosition);
+        alert("Spiller gemt midlertidigt");
       }
+
+      renderEditor();
     </script>
   </body>
 </html>

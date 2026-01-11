@@ -14,8 +14,8 @@
     .header {
       background: #f2f2f2;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       padding: 25px 30px 10px;
     }
 
@@ -77,8 +77,8 @@
       background: white;
       border: 3px solid #333;
       padding: 10px;
-      position: relative;
       overflow-y: auto;
+      position: relative;
     }
 
     .nationality-box {
@@ -116,6 +116,7 @@
       grid-template-columns: repeat(2, 150px);
       gap: 15px;
       justify-content: center;
+      margin-bottom: 20px;
     }
 
     .position-btn {
@@ -139,7 +140,7 @@
 
     .editor {
       max-width: 360px;
-      margin: 20px auto;
+      margin: 0 auto;
     }
 
     .box {
@@ -157,8 +158,8 @@
 
     .arrow {
       cursor: pointer;
-      text-align: center;
       font-size: 20px;
+      text-align: center;
     }
 
     .face-line {
@@ -196,15 +197,15 @@
       </div>
 
       <div class="positions">
-        <button class="position-btn goalkeeper" onclick="selectPosition('målmand', this)">Målmand</button>
-        <button class="position-btn defender" onclick="selectPosition('forsvar', this)">Forsvar</button>
-        <button class="position-btn midfielder" onclick="selectPosition('midtbane', this)">Midtbane</button>
-        <button class="position-btn attacker" onclick="selectPosition('angreb', this)">Angreb</button>
+        <button class="position-btn goalkeeper" onclick="selectPosition('Målmand',this)">Målmand</button>
+        <button class="position-btn defender" onclick="selectPosition('Forsvar',this)">Forsvar</button>
+        <button class="position-btn midfielder" onclick="selectPosition('Midtbane',this)">Midtbane</button>
+        <button class="position-btn attacker" onclick="selectPosition('Angreb',this)">Angreb</button>
       </div>
 
       <div class="editor" id="editor"></div>
 
-      <div style="text-align:center">
+      <div style="text-align:center;margin-top:30px;">
         <button class="action-btn" onclick="goToSignup()">Opret profil</button>
       </div>
     </div>
@@ -219,7 +220,12 @@
   </div>
 
   <script>
-    const appearance = { Hud:6, Hår:14, Øjne:6 };
+    const appearance = {
+      Hudfarve: 6,
+      Hår: 14,
+      Øjne: 6
+    };
+
     const values = {};
     Object.keys(appearance).forEach(k => values[k] = 1);
     let selectedPosition = null;
@@ -245,9 +251,12 @@
     }
 
     function renderFace(){
-      faceValues.innerHTML =
-        `<div class="face-line">Navn: ${playerName.value}</div>
-         <div class="face-line">Position: ${selectedPosition||"-"}</div>`;
+      faceValues.innerHTML = `
+        <div class="face-line"><b>Navn:</b> ${playerName.value||"-"}</div>
+        <div class="face-line"><b>Position:</b> ${selectedPosition||"-"}</div>`;
+      Object.keys(values).forEach(k=>{
+        faceValues.innerHTML+=`<div class="face-line">${k}: ${values[k]}</div>`;
+      });
       natBox.innerText = nationality.value||"-";
     }
 
@@ -269,7 +278,8 @@
     }
 
     playerName.oninput = nationality.onchange = renderFace;
-    renderEditor(); renderFace();
+    renderEditor();
+    renderFace();
   </script>
 </body>
 </html>

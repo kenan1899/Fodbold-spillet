@@ -1,275 +1,237 @@
 <!DOCTYPE html>
 <html lang="da">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Fodbold-Spillet</title>
+<head>
+  <meta charset="UTF-8" />
+  <title>Fodbold-Spillet</title>
 
-    <style>
-      body {
-        margin: 0;
-        font-family: "Comic Sans MS", "Comic Sans", cursive;
-      }
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+    }
 
-      /* HEADER */
-      .header {
-        background: #f2f2f2; /* meget lys grå */
-        text-align: center;
-        padding: 25px 0 10px;
-      }
+    body {
+      margin: 0;
+      background: #eaffea;
+    }
 
-      .top-title {
-        font-size: 48px;
-        font-weight: bold;
-      }
+    /* ===== HEADER ===== */
+    .header {
+      background: #f2f2f2;
+      padding: 25px;
+      text-align: center;
+    }
 
-      .title-blue {
-        color: #9fdcff;
-      }
+    .header h1 {
+      margin: 0;
+      font-size: 42px;
+      font-weight: bold;
+      color: #9fd9ff;
+    }
 
-      .title-yellow {
-        color: #ffd500;
-      }
+    .header h1 span {
+      color: #ffd700;
+    }
 
-      .divider {
-        width: 100%;
-        height: 3px;
-        background: black;
-        margin-top: 15px;
-      }
+    .horizontal-divider {
+      height: 3px;
+      background: black;
+    }
 
-      /* PAGE */
-      .page {
-        display: flex;
-        height: calc(100vh - 130px);
-      }
+    /* ===== MAIN LAYOUT ===== */
+    .page {
+      display: flex;
+      min-height: calc(100vh - 130px);
+    }
 
-      .left {
-        width: 50%;
-        padding: 40px;
-        box-sizing: border-box;
-        background: #e9fbe9; /* lys grøn */
-      }
+    .left {
+      width: 50%;
+      padding: 30px;
+      background: #eaffea;
+    }
 
-      .right {
-        width: 50%;
-        padding: 30px;
-        box-sizing: border-box;
-        background: #cfeecf; /* mørkere grøn */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-      }
+    .right {
+      width: 50%;
+      padding: 30px;
+      background: #d4f2d4;
+      display: flex;
+      justify-content: center;
+    }
 
-      /* Lodret divider */
-      .vertical-divider {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 3px;
-        height: 100%;
-        background: black;
-      }
+    .vertical-divider {
+      position: fixed;
+      left: 50%;
+      top: 130px;
+      width: 3px;
+      height: calc(100vh - 130px);
+      background: black;
+      z-index: 10;
+    }
 
-      .face-box {
-        width: 340px;
-        height: 460px;
-        background: white;
-        border: 3px solid #333;
-        transition: background 0.25s ease;
-        padding: 10px;
-        box-sizing: border-box;
-        overflow-y: auto;
-      }
+    h2 {
+      text-align: center;
+    }
 
-      h1 {
-        text-align: center;
-      }
+    /* ===== POSITIONER ===== */
+    .positions {
+      display: grid;
+      grid-template-columns: repeat(2, 140px);
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
 
-      .positions {
-        display: grid;
-        grid-template-columns: repeat(2, 150px);
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 20px;
-      }
+    .pos {
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-      .position-btn {
-        padding: 15px;
-        cursor: pointer;
-        font-size: 16px;
-        border: none;
-      }
+    .målmand { background: #5fa9ff; }
+    .forsvar { background: #ffe066; }
+    .midtbane { background: #6fdc8c; }
+    .angreb { background: #ff6b6b; }
 
-      /* Position farver */
-      .goalkeeper { background: #4da3ff; }
-      .goalkeeper.selected { background: #1f6fd1; color: white; }
+    .selected {
+      filter: brightness(80%);
+    }
 
-      .defender { background: #ffe066; }
-      .defender.selected { background: #d4b000; }
+    #positionStatus {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
 
-      .midfielder { background: #6fdc8c; }
-      .midfielder.selected { background: #2fa45a; color: white; }
+    /* ===== CUSTOMIZER ===== */
+    .category {
+      border: 2px solid black;
+      padding: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      .attacker { background: #ff6b6b; }
-      .attacker.selected { background: #c92a2a; color: white; }
+    .arrows {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-      #status {
-        text-align: center;
-        margin-bottom: 20px;
-        font-weight: bold;
-      }
+    .arrow {
+      cursor: pointer;
+      font-size: 20px;
+    }
 
-      /* Editor */
-      .editor {
-        max-width: 360px;
-        margin: 0 auto;
-      }
+    /* ===== FACE BOX ===== */
+    .face-box {
+      width: 320px;
+      height: 420px;
+      background: white;
+      border: 3px solid black;
+      padding: 15px;
+      font-size: 16px;
+    }
+  </style>
+</head>
 
-      .box {
-        border: 2px solid #333;
-        padding: 10px;
-        margin-bottom: 10px;
-        background: white;
-      }
+<body>
 
-      .row {
-        display: grid;
-        grid-template-columns: 1fr 40px 80px 40px;
-        align-items: center;
-      }
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Fodbold<span>-</span>Spillet</h1>
+  </div>
+  <div class="horizontal-divider"></div>
 
-      .label {
-        font-weight: bold;
-      }
+  <!-- MAIN -->
+  <div class="page">
 
-      .arrow {
-        cursor: pointer;
-        font-size: 20px;
-        text-align: center;
-        user-select: none;
-      }
+    <div class="vertical-divider"></div>
 
-      .face-line {
-        font-size: 14px;
-        margin-bottom: 4px;
-      }
-    </style>
-  </head>
+    <!-- LEFT -->
+    <div class="left">
+      <h2>Opret spiller</h2>
+      <p style="text-align:center">Vælg position</p>
 
-  <body>
-    <!-- HEADER -->
-    <div class="header">
-      <div class="top-title">
-        <span class="title-blue">Fodbold</span
-        ><span class="title-yellow">-</span
-        ><span class="title-blue">Spillet</span>
+      <div class="positions">
+        <div class="pos målmand" onclick="selectPosition('Målmand', this)">Målmand</div>
+        <div class="pos forsvar" onclick="selectPosition('Forsvar', this)">Forsvar</div>
+        <div class="pos midtbane" onclick="selectPosition('Midtbane', this)">Midtbane</div>
+        <div class="pos angreb" onclick="selectPosition('Angreb', this)">Angreb</div>
       </div>
-      <div class="divider"></div>
+
+      <div id="positionStatus">Ingen position valgt</div>
+
+      <!-- CATEGORIES -->
+      <div id="categories"></div>
     </div>
 
-    <!-- CONTENT -->
-    <div class="page">
-      <!-- VENSTRE -->
-      <div class="left">
-        <h1>Opret spiller</h1>
-        <p style="text-align: center">Vælg position</p>
-
-        <div class="positions">
-          <div class="position-btn goalkeeper" onclick="selectPosition('målmand', this)">Målmand</div>
-          <div class="position-btn defender" onclick="selectPosition('forsvar', this)">Forsvar</div>
-          <div class="position-btn midfielder" onclick="selectPosition('midtbane', this)">Midtbane</div>
-          <div class="position-btn attacker" onclick="selectPosition('angreb', this)">Angreb</div>
-        </div>
-
-        <div id="status">Ingen position valgt</div>
-
-        <div class="editor" id="editor"></div>
-      </div>
-
-      <!-- HØJRE -->
-      <div class="right">
-        <div class="vertical-divider"></div>
-
-        <div class="face-box" id="faceBox">
-          <div id="faceValues"></div>
-        </div>
-      </div>
+    <!-- RIGHT -->
+    <div class="right">
+      <div class="face-box" id="faceBox"></div>
     </div>
+  </div>
 
-    <script>
-      let selectedPosition = null;
+  <script>
+    let position = null;
 
-      const appearance = {
-        Hudfarve: [1, 6],
-        Hår: [1, 14],
-        Hårfarve: [1, 7],
-        Øjne: [1, 6],
-        Ører: [1, 4],
-        Næse: [1, 5],
-        Mund: [1, 5],
-        Skæg: [1, 8],
-        Skægfarve: [1, 7],
-        Hals: [1, 5]
-      };
+    const traits = [
+      ["Hudfarve", 6],
+      ["Hår", 14],
+      ["Hårfarve", 7],
+      ["Øjne", 6],
+      ["Ører", 4],
+      ["Næse", 5],
+      ["Mund", 5],
+      ["Skæg", 8],
+      ["Skægfarve", 7],
+      ["Hals", 5],
+    ];
 
-      const values = {};
-      Object.keys(appearance).forEach(k => values[k] = 1);
+    const values = {};
+    traits.forEach(t => values[t[0]] = 1);
 
-      function renderEditor() {
-        const editor = document.getElementById("editor");
-        editor.innerHTML = "";
+    function selectPosition(name, el) {
+      position = name;
+      document.querySelectorAll(".pos").forEach(p => p.classList.remove("selected"));
+      el.classList.add("selected");
+      document.getElementById("positionStatus").innerText = "Valgt position: " + name;
+    }
 
-        Object.keys(appearance).forEach(key => {
-          const max = appearance[key][1];
+    function changeTrait(trait, max, delta) {
+      values[trait] += delta;
+      if (values[trait] < 1) values[trait] = max;
+      if (values[trait] > max) values[trait] = 1;
+      updateFace();
+    }
 
-          editor.innerHTML += `
-            <div class="box">
-              <div class="row">
-                <div class="label">${key}</div>
-                <div class="arrow" onclick="changeValue('${key}', -1)">◀</div>
-                <div style="text-align:center">${values[key]} / ${max}</div>
-                <div class="arrow" onclick="changeValue('${key}', 1)">▶</div>
-              </div>
+    function updateFace() {
+      const box = document.getElementById("faceBox");
+      box.innerHTML = Object.entries(values)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join("<br>");
+    }
+
+    function renderCategories() {
+      const container = document.getElementById("categories");
+      traits.forEach(([name, max]) => {
+        container.innerHTML += `
+          <div class="category">
+            <strong>${name.toUpperCase()}</strong>
+            <div class="arrows">
+              <span class="arrow" onclick="changeTrait('${name}', ${max}, -1)">◀</span>
+              <span>${values[name]} / ${max}</span>
+              <span class="arrow" onclick="changeTrait('${name}', ${max}, 1)">▶</span>
             </div>
-          `;
-        });
-      }
+          </div>
+        `;
+      });
+      updateFace();
+    }
 
-      function renderFaceValues() {
-        const face = document.getElementById("faceValues");
-        face.innerHTML = "";
-        Object.keys(values).forEach(key => {
-          face.innerHTML += `<div class="face-line">${key}: ${values[key]}</div>`;
-        });
-      }
+    renderCategories();
+  </script>
 
-      function changeValue(key, delta) {
-        const max = appearance[key][1];
-        values[key] += delta;
-        if (values[key] < 1) values[key] = max;
-        if (values[key] > max) values[key] = 1;
-        renderEditor();
-        renderFaceValues();
-      }
-
-      function selectPosition(position, element) {
-        selectedPosition = position;
-
-        document.querySelectorAll(".position-btn").forEach(b => b.classList.remove("selected"));
-        element.classList.add("selected");
-
-        document.getElementById("status").innerText = "Valgt position: " + position;
-
-        const faceBox = document.getElementById("faceBox");
-        if (position === "målmand") faceBox.style.background = "#4da3ff";
-        if (position === "forsvar") faceBox.style.background = "#ffe066";
-        if (position === "midtbane") faceBox.style.background = "#6fdc8c";
-        if (position === "angreb") faceBox.style.background = "#ff6b6b";
-      }
-
-      renderEditor();
-      renderFaceValues();
-    </script>
-  </body>
+</body>
 </html>
